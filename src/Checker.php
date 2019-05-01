@@ -171,7 +171,7 @@ class Checker
     {
         $tokens = token_get_all($content);
         $tokens = array_values(array_filter($tokens, function ($token) {
-            return !is_array($token) || $token[0] !== T_WHITESPACE;
+            return !is_array($token) || !in_array($token[0], [T_WHITESPACE, T_COMMENT]);
         }));
 
         return $tokens;

@@ -38,6 +38,19 @@ PHP;
         $this->assertEquals(2, $result[0]->getLineNumber());
     }
 
+    public function testCheck_singleVarDump_after_comments()
+    {
+        $content = <<<PHP
+<?php
+// some comment
+var_dump('Ahoj');
+PHP;
+        $result = $this->uut->check($content);
+        $this->assertCount(1, $result);
+        $this->assertEquals('var_dump', $result[0]->getType());
+        $this->assertTrue($result[0]->isSure());
+        $this->assertEquals(3, $result[0]->getLineNumber());
+    }
 
     public function testCheck_singlePrintR_dump()
     {
